@@ -39,7 +39,7 @@ logger.addHandler(stream_handler)
 
 
 def send_message(bot, message):
-    """Отправка сообщения в Telegram чат"""
+    """Отправка сообщения в Telegram чат."""
     logger.info('Начинаем попытку отправки ссобщения в telegram')
     try:
         bot.send_message(TELEGRAM_CHAT_ID, message)
@@ -61,6 +61,7 @@ def send_message(bot, message):
 
 
 def get_api_answer(current_timestamp):
+    """Отправка запроса к эндпоинту API-сервиса."""
     timestamp = current_timestamp or int(time.time())
     params = {'from_date': timestamp}
     headers = {'Authorization': f'OAuth {PRACTICUM_TOKEN}'}
@@ -84,7 +85,7 @@ def get_api_answer(current_timestamp):
 
 
 def check_response(response):
-    """Проверка ответа API на корректность"""
+    """Проверка ответа API на корректность."""
     if not isinstance(response, dict) or not response:
         raise exceptions.YandexTypeError('Некорректный ответ от яндекс '
                                          f'эндпоинт "{response}"')
@@ -102,7 +103,7 @@ def check_response(response):
 
 
 def parse_status(homework):
-    """Извлечение статуса конкретной домашней работы"""
+    """Извлечение статуса конкретной домашней работы."""
     homework_name = homework.get('homework_name')
     if not homework_name:
         raise exceptions.YandexKeyError(f'В работе {homework} отсутствует '
