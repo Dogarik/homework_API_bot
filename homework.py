@@ -122,7 +122,7 @@ def check_tokens():
 
 
 def write_log_err(error, last_error, bot):
-    """Запись ошибки в лог"""
+    """Запись ошибки в лог."""
     logger.error(error)
     if bot and error != last_error:
         send_message(bot, error)
