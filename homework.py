@@ -44,18 +44,15 @@ def send_message(bot, message):
     try:
         bot.send_message(TELEGRAM_CHAT_ID, message)
         logger.info(f'Успешно отправили сообщение в telegram "{message}"')
-    except telegram.error.Unauthorized:
-        raise exceptions.TelegramError('Unauthorized')
-    except telegram.error.BadRequest:
-        raise exceptions.TelegramError('BadRequest')
-    except telegram.error.TimedOut:
-        raise exceptions.TelegramError('TimedOut')
-    except telegram.error.NetworkError:
-        raise exceptions.TelegramError('NetworkError')
-    except telegram.error.ChatMigrated:
-        raise exceptions.TelegramError('ChatMigrated')
-    except telegram.error.TelegramError:
-        raise exceptions.TelegramError('TelegramError')
+    except (
+            telegram.error.Unauthorized,
+            telegram.error.BadRequest,
+            telegram.error.TimedOut,
+            telegram.error.NetworkError,
+            telegram.error.ChatMigrated,
+            telegram.error.TelegramError,
+    ) as error:
+        raise exceptions.TelegramError(error.__name__)
     except Exception as error:
         raise exceptions.TelegramError(error)
 
